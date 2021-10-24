@@ -33,8 +33,12 @@ int Vector3DSub(const SVector3D* psv1, const SVector3D* psv2, SVector3D* psResul
 */
 int Vector3DDot(const SVector3D* psv1, const SVector3D* psv2, int* pResult);
 
-
-
-
+/*  Description: cross product of psv1 and psv2
+    psv1 - pointer to first vector
+    psv2 - pointer to second vector
+    pResult - pointer to result
+    return: 0 if result is OK, -1 if ERROR
+*/
+int Vector3DCross(const SVector3D* psv1, const SVector3D* psv2, SVector3D* psResult);
 
 #endif /* VECTOR_3D_H */
