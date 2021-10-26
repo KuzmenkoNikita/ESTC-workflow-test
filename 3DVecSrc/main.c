@@ -80,7 +80,40 @@ int Test3DVecSum(void)
     }
 
     return 0;
-    
+}
+
+/* test Sub 2 vectors */
+int Test3DVecSub(void)
+{
+    SVector3D sv1;
+    SVector3D sv2;
+    SVector3D svRes;
+
+    printf("*********************************\n");
+    printf("*********************************\n");
+    printf("*********************************\n");
+    printf("Testing sub of 2 3D vectors with coordinates[x1, y1, z1] and [x2, y2, z2] \n"); 
+    printf("User must enter coordinates both vectors\n");
+    printf("from the keyboard. The result is calculated as:\n");
+    printf("[x1-x2, y1-2, z1-z2]\n");
+
+    if(0 != Test3DVecFillVectors(&sv1, &sv2))
+    {
+        printf("!!! FATAL ERROR !!!\n");
+        return -1;
+    }
+
+    if(0 != Vector3DSub(&sv1, &sv2, &svRes))
+    {
+        printf("Error in 3D vec module... \n");
+        return -1;
+    }
+
+    if(0 != Test3DVecPrintCoordinates(&svRes))
+    {
+        printf("!!! FATAL ERROR !!!\n");
+        return -1;
+    }
 }
 
 int main()
@@ -99,23 +132,15 @@ int main()
 
         switch(nTestType)
         {
-            case '0':
-            {
-                Test3DVecSum();
-                break;
-            }
-
-            case '1':
-            {
-                break;
-            }
+            case '0': Test3DVecSum(); break;
+            case '1': Test3DVecSub(); break;
             case '2':
             {
-
+                break;
             }
             case '3':
             {
-
+                break;
             }
 
             case 'q': return 0;
