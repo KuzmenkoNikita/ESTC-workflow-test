@@ -95,7 +95,7 @@ int Test3DVecSub(void)
     printf("Testing sub of 2 3D vectors with coordinates[x1, y1, z1] and [x2, y2, z2] \n"); 
     printf("User must enter coordinates both vectors\n");
     printf("from the keyboard. The result is calculated as:\n");
-    printf("[x1-x2, y1-2, z1-z2]\n");
+    printf("[x1-x2, y1-y2, z1-z2]\n");
 
     if(0 != Test3DVecFillVectors(&sv1, &sv2))
     {
@@ -114,7 +114,78 @@ int Test3DVecSub(void)
         printf("!!! FATAL ERROR !!!\n");
         return -1;
     }
+
+    return 0;
 }
+
+/* test Dot 2 vectors */
+int Test3DVecDot(void)
+{
+    SVector3D sv1;
+    SVector3D sv2;
+    int nRes = 0;
+
+    printf("*********************************\n");
+    printf("*********************************\n");
+    printf("*********************************\n");
+    printf("Testing dot of 2 3D vectors with coordinates[x1, y1, z1] and [x2, y2, z2] \n"); 
+    printf("User must enter coordinates both vectors\n");
+    printf("from the keyboard. The result is calculated as:\n");
+    printf(" x1*x2 + y1*y2 + z1*z2\n");
+
+    if(0 != Test3DVecFillVectors(&sv1, &sv2))
+    {
+        printf("!!! FATAL ERROR !!!\n");
+        return -1;
+    }
+
+    if(0 != Vector3DDot(&sv1, &sv2, &nRes))
+    {
+         printf("!!! FATAL ERROR !!!\n");
+        return -1;       
+    }
+
+    printf("Result: %d \n", nRes);
+
+    return 0;
+}
+
+/* test Cross 2 vectors */
+int Test3DVecCross(void)
+{
+    SVector3D sv1;
+    SVector3D sv2;
+    SVector3D svRes;
+
+    printf("*********************************\n");
+    printf("*********************************\n");
+    printf("*********************************\n");
+    printf("Testing sub of 2 3D vectors with coordinates[x1, y1, z1] and [x2, y2, z2] \n"); 
+    printf("User must enter coordinates both vectors\n");
+    printf("from the keyboard. The result is calculated as:\n");
+    printf("[y1*z2 - z1*y2, z1*x2-x1*z2, x1*y2-y1*x2]\n");
+
+    if(0 != Test3DVecFillVectors(&sv1, &sv2))
+    {
+        printf("!!! FATAL ERROR !!!\n");
+        return -1;
+    }
+
+    if(0 != Vector3DCross(&sv1, &sv2, &svRes))
+    {
+        printf("Error in 3D vec module... \n");
+        return -1;
+    }
+
+    if(0 != Test3DVecPrintCoordinates(&svRes))
+    {
+        printf("!!! FATAL ERROR !!!\n");
+        return -1;
+    }
+
+    return 0;
+}
+
 
 int main()
 {
@@ -125,24 +196,20 @@ int main()
 
     while(1)
     {
-        printf("*********************************\n");
-        printf("Enter type of operation: 0 - sum, 1 - sub, 2 - dot, 3 - cross, q - for close programm \n");
+        if(nTestType != 10) /* hande Enter key*/
+        {
+            printf("*********************************\n");
+            printf("Enter type of operation: 0 - sum, 1 - sub, 2 - dot, 3 - cross, q - for close programm \n");
+        }
 
         nTestType = getchar();
 
         switch(nTestType)
         {
-            case '0': Test3DVecSum(); break;
-            case '1': Test3DVecSub(); break;
-            case '2':
-            {
-                break;
-            }
-            case '3':
-            {
-                break;
-            }
-
+            case '0': Test3DVecSum();   break;
+            case '1': Test3DVecSub();   break;
+            case '2': Test3DVecDot();   break; 
+            case '3': Test3DVecCross(); break;
             case 'q': return 0;
             case 10: continue; /* hande Enter key*/
             default: printf ("Unknown test type, try again... \n");
